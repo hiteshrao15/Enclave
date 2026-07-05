@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://enclave-server-q3pgfxk35-hiteshrao15s-projects.vercel.app/api/$1"
+      "destination": "https://enclave-puce.vercel.app/api/$1"
     }
   ]
 }
