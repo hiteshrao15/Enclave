@@ -37,7 +37,12 @@ export const getAllContacts = async (req, res, next) => {
       data: contacts,
     });
   } catch (error) {
-    next(error);
+    logger.error(`Failed to fetch contacts: ${error.message}`);
+
+    return res.status(500).json({
+      success: false,
+      message: "Unable to fetch contacts right now.",
+    });
   }
 };
 
