@@ -12,14 +12,15 @@ const startServer = async () => {
     await connectDB();
 
     app.listen(PORT, () => {
-      logger.info(
-        `Server running on http://localhost:${PORT}`
-      );
+      logger.info(`Server running on http://localhost:${PORT}`);
     });
   } catch (error) {
-    logger.error(error.message);
-    process.exit(1);
+    logger.error(error?.message || error);
   }
 };
 
-startServer();
+if (!process.env.VERCEL) {
+  startServer();
+}
+
+export default app;
