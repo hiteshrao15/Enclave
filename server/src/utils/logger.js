@@ -1,13 +1,27 @@
 import fs from "fs";
+import os from "os";
 import path from "path";
 import winston from "winston";
 
-const logDirectory = path.join(process.cwd(), "src", "logs");
+let logDirectory = process.env.LOG_DIR ||
+  (process.env.VERCEL
+    ? path.join(os.tmpdir(), "enclave-logs")
+    : path.join(process.cwd(), "src", "logs"));
 
-if (!fs.existsSync(logDirectory)) {
-  fs.mkdirSync(logDirectory, {
-    recursive: true,
-  });
+try {
+  if (!fs.existsSync(logDirectory)) {
+    fs.mkdirSync(logDirectory, {
+      recursive: true,
+    });
+  }
+} catch (error) {
+  logDirectory = path.join(os.tmpdir(), "enclave-logs");
+
+  if (!fs.existsSync(logDirectory)) {
+    fs.mkdirSync(logDirectory, {
+      recursive: true,
+    });
+  }
 }
 
 const customFormat = winston.format.printf(
