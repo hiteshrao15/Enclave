@@ -24,14 +24,14 @@ export const submitContact = async (formData) => {
 
     return response.data;
   } catch (error) {
-    if (error.response) {
+    if (error.response?.data) {
       throw error.response.data;
     }
 
     throw {
       success: false,
       message:
-        "Unable to connect to the server.",
+        error.message || "Unable to connect to the server.",
     };
   }
 };
@@ -48,13 +48,13 @@ export const getContacts = async () => {
 
     return response.data;
   } catch (error) {
-    if (error.response) {
+    if (error.response?.data) {
       throw error.response.data;
     }
 
     throw {
       success: false,
-      message: "Unable to fetch contacts.",
+      message: error.message || "Unable to fetch contacts.",
     };
   }
 };
@@ -73,13 +73,13 @@ export const deleteContact = async (id) => {
 
     return response.data;
   } catch (error) {
-    if (error.response) {
+    if (error.response?.data) {
       throw error.response.data;
     }
 
     throw {
       success: false,
-      message: "Unable to delete contact.",
+      message: error.message || "Unable to delete contact.",
     };
   }
 };
